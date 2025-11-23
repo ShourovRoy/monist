@@ -1,0 +1,458 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}
+<title>MoonMist | Luxury Jewelry</title>
+{% endblock title %}
+
+{% block content %}
+<style>
+    /* Hero Section */
+    .hero-section {
+        background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('{% static "images/hero_bg_1763917181901.png" %}') no-repeat center center/cover;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        color: white;
+    }
+    .hero-title {
+        font-size: 4rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        animation: fadeInDown 1s ease-out;
+    }
+    .hero-subtitle {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+        font-weight: 300;
+        animation: fadeInUp 1s ease-out 0.5s backwards;
+    }
+    .btn-gold {
+        background-color: var(--color-gold);
+        color: white;
+        padding: 12px 30px;
+        border-radius: 0;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        transition: all 0.3s ease;
+        border: 1px solid var(--color-gold);
+    }
+    .btn-gold:hover {
+        background-color: transparent;
+        color: var(--color-gold);
+    }
+
+    /* Featured Section */
+    .section-title {
+        text-align: center;
+        margin-bottom: 4rem;
+        position: relative;
+        padding-bottom: 1rem;
+    }
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 2px;
+        background-color: var(--color-gold);
+    }
+    .product-card {
+        border: none;
+        transition: transform 0.3s ease;
+        overflow: hidden;
+    }
+    .product-card:hover {
+        transform: translateY(-10px);
+    }
+    .product-img {
+        height: 400px;
+        object-fit: cover;
+        width: 100%;
+        transition: transform 0.5s ease;
+    }
+    .product-card:hover .product-img {
+        transform: scale(1.05);
+    }
+    .product-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+        padding: 2rem;
+        color: white;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    .product-card:hover .product-overlay {
+        opacity: 1;
+    }
+
+    /* About Section */
+    .about-section {
+        background-color: var(--color-light);
+        padding: 8rem 0;
+    }
+    .about-img {
+        width: 100%;
+        height: 500px;
+        object-fit: cover;
+        box-shadow: 20px 20px 0 var(--color-gold);
+    }
+
+    /* Testimonials */
+    .testimonial-card {
+        background: white;
+        padding: 3rem;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        margin: 2rem;
+    }
+    .quote-icon {
+        color: var(--color-gold);
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Newsletter */
+    .newsletter-section {
+        background-color: var(--color-dark);
+        color: white;
+        padding: 6rem 0;
+        text-align: center;
+    }
+    .newsletter-input {
+        background: transparent;
+        border: 1px solid rgba(255,255,255,0.2);
+        color: white;
+        padding: 15px;
+        width: 300px;
+        margin-right: 10px;
+    }
+    .newsletter-input:focus {
+        background: transparent;
+        color: white;
+        border-color: var(--color-gold);
+        outline: none;
+    }
+
+    /* Footer */
+    footer {
+        background-color: #111;
+        color: #888;
+        padding: 4rem 0 2rem;
+    }
+    .footer-title {
+        color: white;
+        margin-bottom: 1.5rem;
+        font-family: var(--font-serif);
+    }
+    .footer-link {
+        color: #888;
+        text-decoration: none;
+        display: block;
+        margin-bottom: 0.5rem;
+        transition: color 0.3s ease;
+    }
+    .footer-link:hover {
+        color: var(--color-gold);
+    }
+    .social-icon {
+        color: white;
+        margin-right: 1rem;
+        font-size: 1.2rem;
+        transition: color 0.3s ease;
+    }
+    .social-icon:hover {
+        color: var(--color-gold);
+    }
+
+    @keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: rgba(0,0,0,0.8); backdrop-filter: blur(10px);">
+  <div class="container">
+    <a class="navbar-brand" href="#" style="font-family: var(--font-serif); font-size: 1.5rem; letter-spacing: 2px;">MOONMIST</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto text-uppercase" style="font-size: 0.8rem; letter-spacing: 1px;">
+        <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#collections">Collections</a></li>
+        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container text-center">
+        <h1 class="hero-title">Elegance in Every Detail</h1>
+        <p class="hero-subtitle">Discover handcrafted jewelry that tells your story.</p>
+        <a href="#collections" class="btn btn-gold">Shop Collection</a>
+    </div>
+</section>
+
+<!-- Featured Collections -->
+<section id="collections" class="py-5">
+    <div class="container py-5">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <h2 class="section-title">Featured Collections</h2>
+        
+        <!-- Necklaces -->
+        <h3 class="text-center mb-4" style="font-family: var(--font-serif);">Necklaces</h3>
+        <div class="row g-4 mb-5">
+            {% for product in necklaces %}
+            <div class="col-md-4">
+                <div class="card product-card">
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" class="product-img" alt="{{ product.name }}">
+                    {% else %}
+                    <img src="{% static 'images/necklace_product_1763917213613.png' %}" class="product-img" alt="Placeholder">
+                    {% endif %}
+                    <div class="product-overlay">
+                        <h3>{{ product.name }}</h3>
+                        <p>${{ product.price }}</p>
+                        <button type="button" class="btn btn-outline-light text-uppercase" data-bs-toggle="modal" data-bs-target="#orderModal" data-product-id="{{ product.id }}" data-product-name="{{ product.name }}">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center"><p>No necklaces available at the moment.</p></div>
+            {% endfor %}
+        </div>
+
+        <!-- Rings -->
+        <h3 class="text-center mb-4" style="font-family: var(--font-serif);">Rings</h3>
+        <div class="row g-4 mb-5">
+            {% for product in rings %}
+            <div class="col-md-4">
+                <div class="card product-card">
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" class="product-img" alt="{{ product.name }}">
+                    {% else %}
+                    <img src="{% static 'images/ring_product_1763917246458.png' %}" class="product-img" alt="Placeholder">
+                    {% endif %}
+                    <div class="product-overlay">
+                        <h3>{{ product.name }}</h3>
+                        <p>${{ product.price }}</p>
+                        <button type="button" class="btn btn-outline-light text-uppercase" data-bs-toggle="modal" data-bs-target="#orderModal" data-product-id="{{ product.id }}" data-product-name="{{ product.name }}">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center"><p>No rings available at the moment.</p></div>
+            {% endfor %}
+        </div>
+
+        <!-- Earrings -->
+        <h3 class="text-center mb-4" style="font-family: var(--font-serif);">Earrings</h3>
+        <div class="row g-4">
+            {% for product in earrings %}
+            <div class="col-md-4">
+                <div class="card product-card">
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" class="product-img" alt="{{ product.name }}">
+                    {% else %}
+                    <img src="{% static 'images/earrings_product_1763917274481.png' %}" class="product-img" alt="Placeholder">
+                    {% endif %}
+                    <div class="product-overlay">
+                        <h3>{{ product.name }}</h3>
+                        <p>${{ product.price }}</p>
+                        <button type="button" class="btn btn-outline-light text-uppercase" data-bs-toggle="modal" data-bs-target="#orderModal" data-product-id="{{ product.id }}" data-product-name="{{ product.name }}">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center"><p>No earrings available at the moment.</p></div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Order Modal -->
+<div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="orderModalLabel">Place Order</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form method="post">
+          {% csrf_token %}
+          <div class="modal-body">
+            <p>Ordering: <strong id="modalProductName"></strong></p>
+            <input type="hidden" name="product_id" id="modalProductId">
+            <div class="mb-3">
+                <label for="id_customer_name" class="form-label">Name</label>
+                {{ form.customer_name }}
+            </div>
+            <div class="mb-3">
+                <label for="id_customer_email" class="form-label">Email</label>
+                {{ form.customer_email }}
+            </div>
+            <div class="mb-3">
+                <label for="id_customer_address" class="form-label">Address</label>
+                {{ form.customer_address }}
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-gold">Confirm Order</button>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+    var orderModal = document.getElementById('orderModal')
+    orderModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget
+        var productId = button.getAttribute('data-product-id')
+        var productName = button.getAttribute('data-product-name')
+        var modalTitle = orderModal.querySelector('.modal-title')
+        var modalBodyInput = orderModal.querySelector('#modalProductId')
+        var modalBodyName = orderModal.querySelector('#modalProductName')
+
+        modalBodyInput.value = productId
+        modalBodyName.textContent = productName
+    })
+</script>
+
+<!-- About Section -->
+<section id="about" class="about-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 mb-4 mb-md-0">
+                <img src="{% static 'images/about_story_1763917306451.png' %}" class="about-img" alt="Our Story">
+            </div>
+            <div class="col-md-6 ps-md-5">
+                <h2 class="mb-4" style="font-family: var(--font-serif);">The Art of MoonMist</h2>
+                <p class="lead mb-4" style="color: #666;">Crafting memories since 1990.</p>
+                <p style="color: #666; line-height: 1.8;">
+                    At MoonMist, we believe that jewelry is more than just an accessory; it's a reflection of your unique journey. 
+                    Our artisans pour their heart and soul into every piece, ensuring that each creation is a masterpiece of 
+                    craftsmanship and design. From ethically sourced gemstones to recycled gold, we are committed to 
+                    sustainability without compromising on luxury.
+                </p>
+                <a href="#" class="btn btn-gold mt-4">Read Our Story</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section class="py-5 bg-white">
+    <div class="container py-5">
+        <h2 class="section-title">Client Love</h2>
+        <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="testimonial-card">
+                                <i class="fas fa-quote-left quote-icon"></i>
+                                <p class="lead mb-4">"Absolutely stunning! The attention to detail is incredible. I've never received so many compliments on a piece of jewelry before."</p>
+                                <h5 style="font-family: var(--font-serif);">Sarah Jenkins</h5>
+                                <small class="text-muted">New York, NY</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="testimonial-card">
+                                <i class="fas fa-quote-left quote-icon"></i>
+                                <p class="lead mb-4">"The perfect engagement ring. My fiancée was over the moon. Thank you MoonMist for making our special moment even more magical."</p>
+                                <h5 style="font-family: var(--font-serif);">Michael Ross</h5>
+                                <small class="text-muted">London, UK</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon bg-dark rounded-circle p-3" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon bg-dark rounded-circle p-3" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter -->
+<section class="newsletter-section">
+    <div class="container">
+        <h2 class="mb-4" style="font-family: var(--font-serif);">Join the Inner Circle</h2>
+        <p class="mb-5 text-white-50">Subscribe to receive exclusive offers and early access to new collections.</p>
+        <form class="d-flex justify-content-center">
+            <input type="email" class="newsletter-input" placeholder="Your Email Address">
+            <button type="submit" class="btn btn-gold">Subscribe</button>
+        </form>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer id="contact">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <h4 class="footer-title">MoonMist</h4>
+                <p>Luxury jewelry for the modern soul. Handcrafted with love and precision.</p>
+            </div>
+            <div class="col-md-4 mb-4">
+                <h4 class="footer-title">Quick Links</h4>
+                <a href="#" class="footer-link">Shop</a>
+                <a href="#" class="footer-link">About Us</a>
+                <a href="#" class="footer-link">Contact</a>
+                <a href="#" class="footer-link">Terms & Conditions</a>
+            </div>
+            <div class="col-md-4 mb-4">
+                <h4 class="footer-title">Connect</h4>
+                <div class="mb-3">
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-pinterest"></i></a>
+                </div>
+                <p>hello@moonmist.com<br>+1 (555) 123-4567</p>
+            </div>
+        </div>
+        <div class="text-center mt-5 pt-4 border-top border-secondary">
+            <p>&copy; 2024 MoonMist Jewelry. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+{% endblock content %}
